@@ -15,8 +15,6 @@ let resta = async (a, b) => {
 }
 
 //console.log(resta(10, 9));
-
-
 // suma(1,2)
 // .then((res)=>{
 //     console.log(res);
@@ -33,3 +31,4 @@ let operacion = async (a,b) =>{
 }
 
 operacion(10,10);
+

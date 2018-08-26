@@ -1,21 +1,30 @@
 
 
 
+
 console.log("primer paso");
-console.log("2 paso");
+console.log("Inicia función");
 
 
-setTimeout(()=>{
-    console.log("3 paso");
-},10000);
-setTimeout(()=>{
-    console.log("4 paso");
-},0);
-setTimeout(()=>{
-    console.log("5paso");
-},0);
-setTimeout(()=>{
-    console.log("6 paso");
-},0);
+let m1 = setTimeout(()=>{
+    console.log("Espera uno");
+},2000);
 
-console.log("Hola mundo");
+let m2 = setTimeout(()=>{
+    console.log("espera 2");
+},4000);
+
+let fin = console.log("Listo");
+
+let showMensajes = async ()=>{
+    var uno = await m1;    
+    uno = await m2(mensaje2);            
+}
+
+
+
+
+
+
+
+
