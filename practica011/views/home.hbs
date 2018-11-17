@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Almacenar usuarios</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+	<!-- <script type="text/javascript" src="api/funcionesAjax.js"></script>-->
+</head>
+
+<body class="text-center">
+
+    <!-- ENCABEZADO -->
+    <h1 class="display-4">Ingrese sus datos</h1>
+<div class=""  role="alert" id="notificacion">
+  
+</div>
+	<!-- Ingresar datos -->
+	<form method="post" action="/insertar" >
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="">{{ tittle }}</span>
+				</div>
+				<input type="text" placeholder="{{ name }} " name="nombre" id="nombre" class="form-control" required>
+				<input type="text" placeholder="{{ name }} " name="apellidos" id="apellidos" class="form-control" required>
+
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="">{{ name }}</span>
+				</div>
+				<input type="email" name="correo" placeholder="{{ name }} "id="correo" class="form-control" requiered>
+
+			</div>
+			<!-- Button almacenar -->
+			<br><input type="submit" value ="Ingresar" >
+	</form>
+    <!-- opciones -->
+    <br><br>
+    <div class="btn-group" role="group" aria-label="Basic example">
+		  <button type="button" class="btn btn-primary">Consultar</button>
+		  <button type="button" class="btn btn-primary">Eliminar</button>
+		  <button type="button" class="btn btn-primary">Actualizar</button>
+	</div>    
+
+    <div>
+        {{>nav }}
+    </div>  
+</body>
+</html>

@@ -1,6 +1,6 @@
 module.exports = (app)=>{
     app.get('/numero/:num',(req,res)=>{
-        var n = req.params.num;
+        let n = req.params.num;
         var c = 0;
         if(n>0){
            for(var i = 1;i<n;i++){
@@ -9,12 +9,12 @@ module.exports = (app)=>{
                }
            }
            if(c == 1){
-               res.json({$n : "primo"});
+               res.json({numero : n, res: "Es primo"});
            }else{
-            res.json({$n : "no primo"});
+            res.json({n : n, res: "No es primo"});
            }
         }else{
-            res.json({$n : "Error"});
+            res.json({n : n, res: "Error en el número"});
         }
         
     })
@@ -29,16 +29,16 @@ module.exports = (app)=>{
        if(meses<0){
            meses *= -1;
        }
-       var años = fechaHoy.getFullYear()-req.params.yyyy;
-       if(años<0){
-           años *= -1;
+       var annio = fechaHoy.getFullYear()-req.params.yyyy;
+       if(annio<0){
+           annio *= -1;
        }
        
        res.send(
            {
-               Días : dias,
+               Dias : dias,
                Meses : meses,
-               Años : años
+               Annio : annio
            });
    
    });

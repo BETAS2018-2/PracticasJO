@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <h1>chat</h1>
+    <input type="text" id="userName" value="Usuario nuevo" placeholder="Ingresa un nombre">
+    
+    <br><label for="userColor">Selecciona un color</label>
+    <br>    
+    <input type="color" id="userColor">
+    <input type="submit" id="setUserValues" value="Aceptar">
+    <br>
+    <br>
+    <div id="chatContent"></div>
+    <br>
+    <span id="escribiendo"></span>
+    <br>
+    <input type="text" id="mensaje">
+    <input type="button" value="Enviar" id="btnEnviar">
+
+    
+</body>
+
+<script>
+var socket = io();
+socket.on('connect',()=>{
+    //console.log('Conectado');
+    socket.emit('usuarioNuevo', ()=>{
+        usuario: "Usuario nuevo"
+    });
+    
+});
+document.getElementById("setUserValues").addEventListener("click",()=>{
+    socket.emit('usuarioNuevo', ()=>{
+        usuario: document.getElementById("userName").value
+    });
+    
+});
+socket.on('disconnect', ()=>{
+    console.log('Se perdió la conexión');
+});
+
+/*socket.emit('mensajeNuevo', {
+    usuario: "Juan Pablo",
+    msg: "Hola mundo desde socket.io"
+},(res)=>{
+    //console.log(res);
+});*/
+
+
+socket.on('mensajeNuevo',(data)=>{
+    showMensaje(data.usuario, data.mensaje, data.color);
+})
+
+document.getElementById("btnEnviar").addEventListener("click",()=>{
+    var mensaje = document.getElementById("mensaje").value;
+    
+    socket.emit('mensajeNuevo', {
+        usuario: document.getElementById("userName").value,
+        mensaje,
+        color: document.getElementById("userColor").value
+    },(res)=>{
+        showMensaje("Tú", res.mensaje,res.color);
+    });
+});
+document.getElementById("mensaje").addEventListener("keyup", function(event) {
+  // Cancel the default action, if needed
+  event.preventDefault();
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    // Trigger the button element with a click
+    document.getElementById("btnEnviar").click();
+    document.getElementById("mensaje").value = "";
+  }
+}); 
+
+function showMensaje(usuario, mensaje, color){
+    
+    document.getElementById("chatContent").innerHTML += `<span style="color:${color}"> ${usuario}: ${mensaje} </span><br> `;
+}
+
+document.getElementById("mensaje").addEventListener("keypress", ()=>{
+    socket.emit('escribiendo',{
+        usuario: document.getElementById("userName").value
+    });
+});
+socket.on('escribiendo',(data)=>{
+    document.getElementById("escribiendo").innerHTML = data.usuario + " está escribiendo ...";
+    setTimeout(function(){
+        document.getElementById("escribiendo").innerHTML = ""; 
+    }, 500);
+});
+
+</script>
+</html>

@@ -23,17 +23,25 @@ module.exports = (app) =>{
         let { id, nombre, apellido } = req.params;
     
        dato = alumnos.find(alumno => alumno.id == id);
+       if (dato == null){
+        res.json(`Sin resultados`);
+       }else{
         res.json({ calificacion: dato.cal});    
+       }
+        
     });
     
-    app.get('/alumnos/calificacion/:cal',(req,res)=>{
+    // app.get('/alumnos/calificacion/:cal',(req,res)=>{
             
-        res.send(calificacion);
-    });
+    //     res.send(calificacion);
+    // });
     
      app.get('/alumnos/nombres',(req,res)=>{
-        res.json(alumnos);
+        res.json(alumnos);        
      })
+    
+     
+    
 }
 
 
